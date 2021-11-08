@@ -1,3 +1,9 @@
+export type TreeNode = {
+  name: string;
+  attributes?: Record<string, any>;
+  children?: TreeNode[];
+};
+
 const probability = (featureValue: any, objectValues: any[]) =>
   objectValues.filter((object) => object === featureValue).length /
   objectValues.length;
@@ -11,12 +17,8 @@ const entropy = (objectValues: any[]) =>
     return sum - objectValueProbability * Math.log2(objectValueProbability);
   }, 0);
 
-type DataObject = {
-  [key: string]: any;
-};
-
 const gain = (
-  dataset: DataObject[],
+  dataset: Record<string, any>[],
   targetFeature: string,
   relativeFeature: string
 ) => {
@@ -49,7 +51,7 @@ const gain = (
 };
 
 const maxGain = (
-  dataset: DataObject[],
+  dataset: Record<string, any>[],
   targetFeature: string,
   relativeFeatures: string[]
 ) => {
@@ -62,10 +64,6 @@ const maxGain = (
     (max, gain) => (gain.value > max.value ? gain : max),
     gains[0]
   );
-};
-
-const LABELS = {
-  LEAF: "Leaf",
 };
 
 const mostCommonFeatureValue = (dataset: any[]) => {
@@ -86,10 +84,10 @@ const mostCommonFeatureValue = (dataset: any[]) => {
 };
 
 export const generateTree = (
-  dataset: DataObject[],
+  dataset: Record<string, any>[],
   targetFeature: string,
   relativeFeatures: string[]
-) => {
+): TreeNode => {
   const targetFeatureValues = dataset.map((object) => object[targetFeature]);
   const uniqueTargetFeatureValues = unique(targetFeatureValues);
 
@@ -98,9 +96,7 @@ export const generateTree = (
       mostCommonFeatureValue(targetFeatureValues);
 
     return {
-      name: mostCommonTargetFeatureValue,
-      type: LABELS.LEAF,
-      value: mostCommonTargetFeatureValue,
+      name: mostCommonTargetFeatureValue?.toString(),
     };
   }
 
@@ -112,38 +108,42 @@ export const generateTree = (
     dataset.map((object) => object[bestGain.feature])
   );
 
-  const nodeValues: any = possibleFeatureValues.map((featureValue) => {
+  const nodeValues: TreeNode[] = possibleFeatureValues.map((featureValue) => {
     const featureValuesSubset = dataset.filter(
       (object) => object[bestGain.feature] === featureValue
     );
 
-    const child = generateTree(
+    const children = generateTree(
       featureValuesSubset,
       targetFeature,
       remainingFeatures
     );
 
     return {
-      name: featureValue,
-      prob: featureValuesSubset.length / dataset.length,
-      child: child,
+      name: featureValue?.toString(),
+      attributes: {
+        prob: (featureValuesSubset.length / dataset.length).toFixed(2),
+      },
+      children: [children],
     };
   });
 
   return {
-    name: bestGain.feature,
-    gain: bestGain,
-    values: nodeValues,
+    name: bestGain.feature?.toString(),
+    attributes: {
+      gain: bestGain.value?.toFixed(2)
+    },
+    children: nodeValues,
   };
 };
 
-export const predict = (tree: DataObject, dataset: DataObject[]): any => {
-  if (tree.type === LABELS.LEAF) {
+export const predict = (tree: Record<string, any>, dataset: Record<string, any>[]): any => {
+  if (!tree.children?.length) {
     return tree.value;
   }
 
   const node = tree.values.find(
-    (node: DataObject) => node.name === dataset[tree.name]
+    (node: Record<string, any>) => node.name === dataset[tree.name]
   );
 
   return predict(node?.child ?? tree.values[0].child, dataset);

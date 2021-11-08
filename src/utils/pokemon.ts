@@ -54,10 +54,17 @@ type Pokemon = {
   experience: number;
 };
 
-const fetchPokemon = async (): Promise<ApiPokemonDto[]> => {
+const fetchPokemon = async (
+  limit?: number,
+  offset?: number
+): Promise<ApiPokemonDto[]> => {
   try {
     const allPokemon = await (
-      await fetch("https://pokeapi.co/api/v2/pokemon/?limit=2000")
+      await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${limit ? "?limit=" + limit : ""}${
+          offset ? "&offset=" + offset : ""
+        }`
+      )
     ).json();
     const pokemonDetailsRequests = allPokemon.results.map(
       async (pokemon: ApiPokemonDto) => await (await fetch(pokemon.url)).json()
@@ -70,8 +77,11 @@ const fetchPokemon = async (): Promise<ApiPokemonDto[]> => {
   return [];
 };
 
-export const fetchPokemonDataset = async (): Promise<Pokemon[]> =>
-  (await fetchPokemon()).map((p) => ({
+export const fetchPokemonDataset = async (
+  limit?: number,
+  offset?: number
+): Promise<Pokemon[]> =>
+  (await fetchPokemon(limit, offset)).map((p) => ({
     name: p.name,
     ability1: p.abilities[0]?.ability.name,
     ability2: p.abilities[1]?.ability.name,

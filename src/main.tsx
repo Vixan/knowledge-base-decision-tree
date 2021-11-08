@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import { ColorModeScript } from "@chakra-ui/color-mode";
+import theme from "./styles/theme";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <App />
     </BrowserRouter>
   </React.StrictMode>,

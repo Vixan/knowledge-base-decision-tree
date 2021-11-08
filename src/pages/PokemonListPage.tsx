@@ -1,18 +1,22 @@
-import { FC, useEffect } from "react";
-import { useQuery } from "react-query";
+import { FC, useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
 import { fetchPokemonDataset } from "../utils/pokemon";
-import { generateTree, predict } from "../utils/decision-tree";
+import { generateTree, predict, TreeNode } from "../utils/decision-tree";
+import { TreeDiagram } from "../components/TreeDiagram";
+import { Button } from "@chakra-ui/react";
 
 type Props = {};
 
 export const PokemonListPage: FC<Props> = ({}) => {
-  const { data: pokemon } = useQuery("pokemon", fetchPokemonDataset);
+  const { data: pokemon } = useQuery("pokemon", () => fetchPokemonDataset(20, 300));
+  const [tree, setTree] = useState<TreeNode | null>(null);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (pokemon) {
       console.log(pokemon);
 
-      const tree = generateTree(pokemon, "name", [
+      const decisionTree = generateTree(pokemon, "name", [
         "type1",
         "type2",
         "ability1",
@@ -27,16 +31,22 @@ export const PokemonListPage: FC<Props> = ({}) => {
         "specialAttack",
         "specialDefense",
         "speed",
-        "experience"
+        "experience",
       ]);
-      console.log(tree);
+      console.log(decisionTree);
+
+      setTree(decisionTree);
     }
   }, [pokemon]);
 
+  const refreshData = () => {
+    queryClient.invalidateQueries("pokemon");
+  };
+
   return (
     <div>
-      <h1>Pokemon</h1>
-      <p>{pokemon?.map((p) => p.name)}</p>
+      <Button onClick={refreshData}>Refresh</Button>
+      {tree && <TreeDiagram data={tree} />}
     </div>
   );
 };
