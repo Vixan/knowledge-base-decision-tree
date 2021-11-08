@@ -1,0 +1,72 @@
+[
+  {
+    "toothed": true,
+    "hair": true,
+    "breathes": true,
+    "legs": true,
+    "species": "Mammal"
+  },
+  {
+    "toothed": true,
+    "hair": true,
+    "breathes": true,
+    "legs": true,
+    "species": "Mammal"
+  },
+  {
+    "toothed": true,
+    "hair": false,
+    "breathes": true,
+    "legs": false,
+    "species": "Reptile"
+  },
+  {
+    "toothed": false,
+    "hair": true,
+    "breathes": true,
+    "legs": true,
+    "species": "Mammal"
+  },
+  {
+    "toothed": true,
+    "hair": true,
+    "breathes": true,
+    "legs": true,
+    "species": "Mammal"
+  },
+  {
+    "toothed": true,
+    "hair": true,
+    "breathes": true,
+    "legs": true,
+    "species": "Mammal"
+  },
+  {
+    "toothed": true,
+    "hair": false,
+    "breathes": false,
+    "legs": false,
+    "species": "Reptile"
+  },
+  {
+    "toothed": true,
+    "hair": false,
+    "breathes": true,
+    "legs": false,
+    "species": "Reptile"
+  },
+  {
+    "toothed": true,
+    "hair": true,
+    "breathes": true,
+    "legs": true,
+    "species": "Mammal"
+  },
+  {
+    "toothed": false,
+    "hair": false,
+    "breathes": true,
+    "legs": true,
+    "species": "Reptile"
+  }
+]
