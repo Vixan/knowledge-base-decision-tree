@@ -1,17 +1,32 @@
-import { Button } from "@chakra-ui/button";
+import { IconButton } from "@chakra-ui/button";
 import { useColorMode } from "@chakra-ui/color-mode";
-import { Box } from "@chakra-ui/layout";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { Image } from "@chakra-ui/image";
+import { Flex, HStack, Text } from "@chakra-ui/layout";
 
 export const TopNavigation = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
+  const isDarkMode = colorMode === "dark";
+
   return (
     <header>
-      <Box display="flex" justifyContent="right" alignContent="end" width="100%" padding="4">
-        <Button onClick={toggleColorMode}>
-          Toggle {colorMode === "light" ? "Dark" : "Light"}
-        </Button>
-      </Box>
+      <Flex
+        justify="space-between"
+        alignContent="end"
+        width="100%"
+        alignItems="center"
+      >
+        <HStack alignItems="center">
+          <Image src="./images/tree-logo.svg" boxSize="40px"></Image>
+          <Text fontWeight="bold" fontSize="2xl" textColor="purple.400">Decision tree</Text>
+        </HStack>
+        <IconButton
+          aria-label="Theme"
+          onClick={toggleColorMode}
+          icon={isDarkMode ? <SunIcon /> : <MoonIcon />}
+        ></IconButton>
+      </Flex>
     </header>
   );
 };

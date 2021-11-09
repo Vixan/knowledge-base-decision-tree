@@ -13,11 +13,10 @@ export const TreeDiagram: FC<Props> = ({ data }) => {
   const linkColor = useColorModeValue("dark", "light");
 
   return (
-    <Box width="100vw" height="100vh">
+    <Box width="100%" height="100%">
       <Tree
         data={data}
         orientation="vertical"
-        separation={{ siblings: 1 }}
         pathFunc="step"
         pathClassFunc={() => `diagram-tree-link ${linkColor}`}
         renderCustomNodeElement={(rd3tProps) => (

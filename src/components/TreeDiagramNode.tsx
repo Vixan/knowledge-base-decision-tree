@@ -1,4 +1,5 @@
 import { useColorModeValue } from "@chakra-ui/color-mode";
+import { useToken } from "@chakra-ui/system";
 import { FC } from "react";
 import {
   CustomNodeElementProps,
@@ -11,20 +12,40 @@ type Props = CustomNodeElementProps & {
 
 export const TreeDiagramNode: FC<Props> = ({
   nodeDatum,
+  hierarchyPointNode,
   toggleNode,
   handleClick,
 }) => {
-  const nodeTextColor = useColorModeValue("#171923", "#E2E8F0");
+  const [gray900, gray200, purple400, orange200, pink400] = useToken("colors", [
+    "gray.900",
+    "gray.200",
+    "purple.400",
+    "orange.200",
+    "pink.400",
+  ]);
+  const nodeTextColor = useColorModeValue(gray900, gray200);
 
   return (
     <g>
       <circle
         r="15"
         stroke={nodeTextColor}
-        fill="#F6E05E"
+        fill={
+          hierarchyPointNode.parent
+            ? nodeDatum.children
+              ? purple400
+              : orange200
+            : pink400
+        }
         onClick={() => handleClick && handleClick(nodeDatum)}
       />
-      <text fill={nodeTextColor} x="20" stroke="none" onClick={toggleNode} fontWeight="bold">
+      <text
+        fill={nodeTextColor}
+        x="20"
+        stroke="none"
+        onClick={toggleNode}
+        fontWeight="bold"
+      >
         {nodeDatum.name}
       </text>
       {nodeDatum.attributes &&

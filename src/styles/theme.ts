@@ -5,6 +5,12 @@ const config: ThemeConfig = {
   useSystemColorMode: false,
 };
 
-const theme = extendTheme({ config });
+const theme = extendTheme({
+  config,
+  fonts: {
+    heading: "Open Sans",
+    body: "Raleway",
+  },
+});
 
 export default theme;
