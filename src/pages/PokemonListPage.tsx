@@ -1,15 +1,21 @@
-import { FC, useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
-import { fetchPokemonDataset } from "../utils/pokemon";
-import { generateTree, predict, TreeNode } from "../utils/decision-tree";
-import { TreeDiagram } from "../components/TreeDiagram";
+import { ChevronLeftIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
   Heading,
+  HStack,
+  Link,
   useColorModeValue,
-  useToken,
+  VStack,
 } from "@chakra-ui/react";
+import { FC, useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
+import { NavLink } from "react-router-dom";
+import { TreeDiagram } from "../components/TreeDiagram";
+import { generateTree, TreeNode } from "../utils/decision-tree";
+import { fetchPokemonDataset } from "../utils/pokemon";
 
 type Props = {};
 
@@ -53,11 +59,28 @@ export const PokemonListPage: FC<Props> = ({}) => {
   };
 
   return (
-    <Box display="flex" flexDirection="column" height="100%">
-      <Heading as="h1" mb={8}>
-        Pokemon demo
-      </Heading>
-      {/* <Button onClick={refreshData}>Refresh</Button> */}
+    <VStack width="100%" alignItems="stretch" height="100%" spacing={4}>
+      <Breadcrumb>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+        </BreadcrumbItem>
+
+        <BreadcrumbItem>
+          <BreadcrumbLink href="#">Demos</BreadcrumbLink>
+        </BreadcrumbItem>
+
+        <BreadcrumbItem isCurrentPage>
+          <BreadcrumbLink href="/demo/pokemon">Pokemon</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+      <HStack mb={8}>
+        <Link as={NavLink} to="/" _hover={{color: "blue.400"}}>
+          <ChevronLeftIcon boxSize="2rem" />
+        </Link>
+        <Heading as="h1" >
+          Pokemon demo
+        </Heading>
+      </HStack>
       <Box
         backgroundColor={treeDiagrambackgroundColor}
         height="100%"
@@ -65,6 +88,6 @@ export const PokemonListPage: FC<Props> = ({}) => {
       >
         {tree && <TreeDiagram data={tree} />}
       </Box>
-    </Box>
+    </VStack>
   );
 };
