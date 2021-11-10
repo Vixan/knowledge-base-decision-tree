@@ -37,11 +37,17 @@ export const PokemonListPage: FC = () => {
   } = useQuery("pokemon", async () => await fetchPokemonDataset(1, 100), {
     enabled: false,
   });
-  const [tree, setTree] = useState<TreeNode | null>(null);
 
+  const [tree, setTree] = useState<TreeNode | null>(null);
+  const [predictedPokemonName, setPredictedPokemonName] = useState<
+    string | null
+  >(null);
+
+  const [pokemonToPredict, setPokemonToPredict] = useState<string>("");
   const treeDiagrambackgroundColor = useColorModeValue("gray.100", "gray.700");
   const treeBoxBorderColor = useColorModeValue("gray.300", "gray.600");
   const inputBackgroundColor = useColorModeValue("white", "gray.900");
+
   const toast = useToast();
 
   useEffect(() => {
@@ -69,11 +75,6 @@ export const PokemonListPage: FC = () => {
       setPokemonToPredict(JSON.stringify(pokemon[0]));
     }
   }, [pokemon]);
-
-  const [predictedPokemonName, setPredictedPokemonName] = useState<
-    string | null
-  >(null);
-  const [pokemonToPredict, setPokemonToPredict] = useState<string>("");
 
   const autoFillPokemon = async () => {
     await refetchPokemon();

@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Route, Routes } from "react-router";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
+import { HeartDiseasePage } from "./pages/HeartDiseasePage";
 import { HomePage } from "./pages/HomePage";
 import { PokemonListPage } from "./pages/PokemonListPage";
 import theme from "./styles/theme";
@@ -27,14 +28,17 @@ const App = () => {
           maxW="container.xl"
           paddingY={[4, 4, 8]}
           paddingX={[8, 8, 16]}
-          height="calc(100vh)"
-        >
+          height="calc(100vh)">
           <VStack align="stretch" spacing={8} width="100%" height="100%">
             <Header />
             <Box as="main" height="100%">
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/demos/pokemon" element={<PokemonListPage />} />
+                <Route
+                  path="/demos/heart-disease"
+                  element={<HeartDiseasePage />}
+                />
               </Routes>
             </Box>
             <Footer />
