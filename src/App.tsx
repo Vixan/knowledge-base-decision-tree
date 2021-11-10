@@ -14,6 +14,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       cacheTime: 1000 * 60 * 60,
+      refetchOnWindowFocus: false,
     },
   },
 });
@@ -33,7 +34,7 @@ const App = () => {
             <Box as="main" height="100%">
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/demo/pokemon" element={<PokemonListPage />} />
+                <Route path="/demos/pokemon" element={<PokemonListPage />} />
               </Routes>
             </Box>
             <Footer />

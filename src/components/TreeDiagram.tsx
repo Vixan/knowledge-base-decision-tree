@@ -18,6 +18,7 @@ export const TreeDiagram: FC<Props> = ({ data }) => {
         data={data}
         orientation="vertical"
         pathFunc="step"
+        initialDepth={4}
         pathClassFunc={() => `diagram-tree-link ${linkColor}`}
         renderCustomNodeElement={(rd3tProps) => (
           <TreeDiagramNode {...rd3tProps} />

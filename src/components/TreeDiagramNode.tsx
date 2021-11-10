@@ -5,13 +5,16 @@ import {
   CustomNodeElementProps,
   TreeNodeDatum,
 } from "react-d3-tree/lib/types/common";
+import { TreeNode } from "../utils/decision-tree";
 
 type Props = CustomNodeElementProps & {
+  nodeDatum: TreeNodeDatum & TreeNode;
   handleClick?: (treeNodeDatum: TreeNodeDatum) => void;
 };
 
 export const TreeDiagramNode: FC<Props> = ({
   nodeDatum,
+
   hierarchyPointNode,
   toggleNode,
   handleClick,
@@ -27,31 +30,45 @@ export const TreeDiagramNode: FC<Props> = ({
 
   return (
     <g>
-      <circle
-        r="15"
-        stroke={nodeTextColor}
-        fill={
-          hierarchyPointNode.parent
-            ? nodeDatum.children
-              ? purple400
-              : orange200
-            : pink400
-        }
-        onClick={() => handleClick && handleClick(nodeDatum)}
-      />
+      {!hierarchyPointNode.parent && (
+        <circle
+          r="15"
+          stroke={nodeTextColor}
+          fill={pink400}
+          onClick={() => handleClick && handleClick(nodeDatum)}
+        />
+      )}
+      {((!nodeDatum.isValue && hierarchyPointNode.parent) ||
+        nodeDatum.__rd3t.collapsed) && (
+        <circle
+          r="15"
+          stroke={nodeTextColor}
+          fill={purple400}
+          onClick={() => handleClick && handleClick(nodeDatum)}
+        />
+      )}
+      {!nodeDatum.children?.length && (
+        <circle
+          r="15"
+          stroke={nodeTextColor}
+          fill={orange200}
+          onClick={() => handleClick && handleClick(nodeDatum)}
+        />
+      )}
+
       <text
         fill={nodeTextColor}
         x="20"
         stroke="none"
         onClick={toggleNode}
-        fontWeight="bold"
-      >
-        {nodeDatum.name}
+        fontWeight="bold">
+        {nodeDatum.name ?? "null"}
       </text>
+
       {nodeDatum.attributes &&
-        Object.entries(nodeDatum.attributes)?.map(([key, value]) => (
+        Object.entries(nodeDatum.attributes).map(([key, value], i) => (
           <text key={key} fill={nodeTextColor} stroke="none" x="20" dy="20">
-            {key}: {value}
+            {key}: {value?.toString()}
           </text>
         ))}
     </g>

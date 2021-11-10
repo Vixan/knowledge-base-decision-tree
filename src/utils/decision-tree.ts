@@ -2,6 +2,7 @@ export type TreeNode = {
   name: string;
   attributes?: Record<string, any>;
   children?: TreeNode[];
+  isValue?: boolean;
 };
 
 const probability = (featureValue: any, objectValues: any[]) =>
@@ -113,7 +114,7 @@ export const generateTree = (
       (object) => object[bestGain.feature] === featureValue
     );
 
-    const children = generateTree(
+    const childTree = generateTree(
       featureValuesSubset,
       targetFeature,
       remainingFeatures
@@ -124,27 +125,36 @@ export const generateTree = (
       attributes: {
         prob: (featureValuesSubset.length / dataset.length).toFixed(2),
       },
-      children: [children],
+      isValue: true,
+      children: [childTree],
     };
   });
 
   return {
     name: bestGain.feature?.toString(),
     attributes: {
-      gain: bestGain.value?.toFixed(2)
+      gain: bestGain.value?.toFixed(2),
     },
     children: nodeValues,
   };
 };
 
-export const predict = (tree: Record<string, any>, dataset: Record<string, any>[]): any => {
+export const predict = (
+  tree: Record<string, any>,
+  dataset: Record<string, any>[]
+): any => {
   if (!tree.children?.length) {
-    return tree.value;
+    return tree.name;
   }
 
-  const node = tree.values.find(
-    (node: Record<string, any>) => node.name === dataset[tree.name]
+  const node = tree.children.find(
+    (node: TreeNode) => node.name === dataset[tree.name]?.toString()
   );
 
-  return predict(node?.child ?? tree.values[0].child, dataset);
+  const prediction = predict(
+    node?.children?.length ? node.children[0] : tree?.children[0].children,
+    dataset
+  );
+
+  return prediction;
 };
