@@ -8,6 +8,7 @@ import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { HeartDiseaseDemoPage } from "./pages/HeartDiseaseDemoPage";
 import { HomePage } from "./pages/HomePage";
+import { MobilePhonesDemoPage } from "./pages/MobilePhonesDemoPage";
 import { MusicGenreDemoPage } from "./pages/MusicGenreDemoPage";
 import { PokemonListDemoPage } from "./pages/PokemonListDemoPage";
 import theme from "./styles/theme";
@@ -46,6 +47,10 @@ const App = () => {
                 <Route
                   path="/demos/music-genre"
                   element={<MusicGenreDemoPage />}
+                />
+                <Route
+                  path="/demos/mobile-phone"
+                  element={<MobilePhonesDemoPage />}
                 />
               </Routes>
             </Box>

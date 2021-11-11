@@ -26,6 +26,8 @@ export const DemoItem: FC<Props> = ({ icon, title, description, link }) => {
       padding={6}
       borderWidth={1}
       borderColor={demoItemBorderColor}
+      display="flex"
+      alignItems="center"
       _hover={{
         backgroundColor: demoItemHoverBackgroundColor,
       }}>
