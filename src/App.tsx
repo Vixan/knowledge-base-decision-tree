@@ -6,9 +6,10 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Route, Routes } from "react-router";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
-import { HeartDiseasePage } from "./pages/HeartDiseasePage";
+import { HeartDiseaseDemoPage } from "./pages/HeartDiseaseDemoPage";
 import { HomePage } from "./pages/HomePage";
-import { PokemonListPage } from "./pages/PokemonListPage";
+import { MusicGenreDemoPage } from "./pages/MusicGenreDemoPage";
+import { PokemonListDemoPage } from "./pages/PokemonListDemoPage";
 import theme from "./styles/theme";
 
 const queryClient = new QueryClient({
@@ -34,10 +35,17 @@ const App = () => {
             <Box as="main" height="100%">
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/demos/pokemon" element={<PokemonListPage />} />
+                <Route
+                  path="/demos/pokemon"
+                  element={<PokemonListDemoPage />}
+                />
                 <Route
                   path="/demos/heart-disease"
-                  element={<HeartDiseasePage />}
+                  element={<HeartDiseaseDemoPage />}
+                />
+                <Route
+                  path="/demos/music-genre"
+                  element={<MusicGenreDemoPage />}
                 />
               </Routes>
             </Box>

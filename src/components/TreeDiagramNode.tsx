@@ -14,7 +14,6 @@ type Props = CustomNodeElementProps & {
 
 export const TreeDiagramNode: FC<Props> = ({
   nodeDatum,
-
   hierarchyPointNode,
   toggleNode,
   handleClick,

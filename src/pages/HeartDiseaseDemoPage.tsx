@@ -23,7 +23,7 @@ import { TreeDiagram } from "../components/TreeDiagram";
 import heartDiseaseDataset from "../datasets/heart-disease.json";
 import { generateTree, predict, TreeNode } from "../utils/decision-tree";
 
-export const HeartDiseasePage: FC = () => {
+export const HeartDiseaseDemoPage: FC = () => {
   const treeDiagrambackgroundColor = useColorModeValue("gray.100", "gray.700");
   const treeBoxBorderColor = useColorModeValue("gray.300", "gray.600");
   const inputBackgroundColor = useColorModeValue("white", "gray.900");
@@ -83,14 +83,14 @@ export const HeartDiseasePage: FC = () => {
   const predictSex = async () => {
     if (tree && personDataToPredict) {
       try {
-        const jsonPokemonToPredict = JSON.parse(personDataToPredict);
-        const predictedPokemon = await predict(
+        const personData = JSON.parse(personDataToPredict);
+        const predictedSex = await predict(
           tree,
-          jsonPokemonToPredict as any
+          personData as any
         );
-        setPredictedSex(predictedPokemon);
+        setPredictedSex(predictedSex);
         toast({
-          title: `Prediction: ${predictedPokemon}`,
+          title: `Prediction: ${predictedSex}`,
           position: "top",
           isClosable: true,
           duration: null,
@@ -113,7 +113,7 @@ export const HeartDiseasePage: FC = () => {
         </BreadcrumbItem>
 
         <BreadcrumbItem isCurrentPage>
-          <BreadcrumbLink href="/demo/pokemon">Heart disease</BreadcrumbLink>
+          <BreadcrumbLink href="/demo/heart-disease">Heart disease</BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
       <HStack mb={8} alignItems="center">
@@ -171,7 +171,7 @@ export const HeartDiseasePage: FC = () => {
           from Kaggle
         </Link>
 
-        {tree && <TreeDiagram data={tree} />}
+        {tree && <TreeDiagram data={tree} initialDepth={100} />}
       </Box>
     </VStack>
   );

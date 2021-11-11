@@ -11,6 +11,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { ChewedHeartIcon } from "../components/ChewedHeartIcon";
 import { DemoItem } from "../components/DemoItem";
+import { MusicIcon } from "../components/MusicIcon";
 import { PokeballIcon } from "../components/PokeballIcon";
 
 export const HomePage = () => {
@@ -28,7 +29,7 @@ export const HomePage = () => {
               textColor="white"
             />
           }
-          title="Pokemon dataset"
+          title="Pokemon"
           description="Retrieved using PokeAPI"
           link="/demos/pokemon"
         />
@@ -42,9 +43,23 @@ export const HomePage = () => {
               textColor="white"
             />
           }
-          title="Heart disease dataset"
+          title="Heart disease"
           description="Retrieved from Kaggle"
           link="/demos/heart-disease"
+        />
+        <DemoItem
+          icon={
+            <MusicIcon
+              boxSize="3rem"
+              padding={3}
+              backgroundColor="purple.300"
+              borderRadius="full"
+              textColor="white"
+            />
+          }
+          title="Music genre"
+          description="Retrieved from Kaggle"
+          link="/demos/music-genre"
         />
       </SimpleGrid>
     </VStack>

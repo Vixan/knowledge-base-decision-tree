@@ -25,7 +25,7 @@ import { TreeDiagram } from "../components/TreeDiagram";
 import { generateTree, predict, TreeNode } from "../utils/decision-tree";
 import { fetchPokemonDataset } from "../utils/pokemon";
 
-export const PokemonListPage: FC = () => {
+export const PokemonListDemoPage: FC = () => {
   const { data: pokemonList, isLoading: isPokemonListLoading } = useQuery(
     "pokemonList",
     async () => await fetchPokemonDataset(100, 0)

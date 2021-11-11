@@ -7,9 +7,10 @@ import { useColorModeValue } from "@chakra-ui/color-mode";
 
 type Props = {
   data: TreeNode;
+  initialDepth?: number;
 };
 
-export const TreeDiagram: FC<Props> = ({ data }) => {
+export const TreeDiagram: FC<Props> = ({ data, initialDepth = 4 }) => {
   const linkColor = useColorModeValue("dark", "light");
 
   return (
@@ -18,7 +19,7 @@ export const TreeDiagram: FC<Props> = ({ data }) => {
         data={data}
         orientation="vertical"
         pathFunc="step"
-        initialDepth={4}
+        initialDepth={initialDepth}
         pathClassFunc={() => `diagram-tree-link ${linkColor}`}
         renderCustomNodeElement={(rd3tProps) => (
           <TreeDiagramNode {...rd3tProps} />

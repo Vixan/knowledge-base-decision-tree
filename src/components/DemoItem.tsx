@@ -13,6 +13,10 @@ type Props = {
 
 export const DemoItem: FC<Props> = ({ icon, title, description, link }) => {
   const demoItemBackgroundColor = useColorModeValue("gray.100", "gray.700");
+  const demoItemHoverBackgroundColor = useColorModeValue(
+    "gray.200",
+    "gray.600"
+  );
   const demoItemBorderColor = useColorModeValue("gray.300", "gray.600");
 
   return (
@@ -21,7 +25,10 @@ export const DemoItem: FC<Props> = ({ icon, title, description, link }) => {
       borderRadius="xl"
       padding={6}
       borderWidth={1}
-      borderColor={demoItemBorderColor}>
+      borderColor={demoItemBorderColor}
+      _hover={{
+        backgroundColor: demoItemHoverBackgroundColor,
+      }}>
       <HStack>
         {icon}
         <LinkOverlay as={NavLink} to={link}>
