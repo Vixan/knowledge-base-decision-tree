@@ -1,6 +1,7 @@
 import { Box, ChakraProvider, Container, Flex, VStack } from "@chakra-ui/react";
 import "@fontsource/open-sans/700.css";
 import "@fontsource/raleway/400.css";
+import { StudentAlcoholDemoPage } from "./pages/StudentAlcoholDemoPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Route, Routes } from "react-router";
@@ -30,7 +31,7 @@ const App = () => {
           maxW="container.xl"
           paddingY={[4, 4, 8]}
           paddingX={[8, 8, 16]}
-          height="calc(100vh)">
+          height="100vh">
           <VStack align="stretch" spacing={8} width="100%" height="100%">
             <Header />
             <Box as="main" height="100%">
@@ -51,6 +52,10 @@ const App = () => {
                 <Route
                   path="/demos/mobile-phone"
                   element={<MobilePhonesDemoPage />}
+                />
+                <Route
+                  path="/demos/student-alcohol"
+                  element={<StudentAlcoholDemoPage />}
                 />
               </Routes>
             </Box>

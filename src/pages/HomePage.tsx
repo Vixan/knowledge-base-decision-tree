@@ -1,14 +1,5 @@
-import { useColorModeValue } from "@chakra-ui/color-mode";
-import {
-  Heading,
-  HStack,
-  LinkBox,
-  LinkOverlay,
-  SimpleGrid,
-  Text,
-  VStack,
-} from "@chakra-ui/layout";
-import { NavLink } from "react-router-dom";
+import { Heading, SimpleGrid, VStack } from "@chakra-ui/layout";
+import { DrinkIcon } from "../components/DrinkIcon";
 import { ChewedHeartIcon } from "../components/ChewedHeartIcon";
 import { DemoItem } from "../components/DemoItem";
 import { MobilePhoneIcon } from "../components/MobilePhoneIcon";
@@ -17,7 +8,11 @@ import { PokeballIcon } from "../components/PokeballIcon";
 
 export const HomePage = () => {
   return (
-    <VStack width="100%" alignItems="stretch" height="100%" spacing={4}>
+    <VStack
+      width="100%"
+      alignItems="stretch"
+      height={["calc(120% + 150px)", "100%"]}
+      spacing={4}>
       <Heading as="h1">Demos</Heading>
       <SimpleGrid columns={[1, 1, 2, 2, 3]} spacing={10} gridAutoRows="1fr">
         <DemoItem
@@ -79,6 +74,21 @@ export const HomePage = () => {
           title="Mobile phones"
           description="Predict the clock speed of a mobile phone using other specs"
           link="/demos/mobile-phone"
+        />
+        <DemoItem
+          icon={
+            <DrinkIcon
+              overflow="visible"
+              boxSize="3rem"
+              padding={3}
+              backgroundColor="orange.300"
+              borderRadius="full"
+              textColor="white"
+            />
+          }
+          title="Student alcohol"
+          description="Predict the workday consumption of alcohol of a student"
+          link="/demos/student-alcohol"
         />
       </SimpleGrid>
     </VStack>

@@ -138,7 +138,8 @@ export const HeartDiseaseDemoPage: FC = () => {
           left={5}
           backgroundColor={inputBackgroundColor}
           width="auto"
-          borderRadius="xl">
+          borderRadius="xl"
+          zIndex="2">
           <InputLeftElement marginLeft={2} width="4rem">
             <Button size="xs" onClick={autoFillInput}>
               Autofill

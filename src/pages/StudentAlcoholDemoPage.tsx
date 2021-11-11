@@ -20,72 +20,112 @@ import {
 import { FC, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { TreeDiagram } from "../components/TreeDiagram";
-import mobilePhonesDataset from "../datasets/mobile-phones.json";
+import studentsDataset from "../datasets/student-alcohol.json";
 import { generateTree, predict, TreeNode } from "../utils/decision-tree";
 
-export const MobilePhonesDemoPage: FC = () => {
+export const StudentAlcoholDemoPage: FC = () => {
   const treeDiagrambackgroundColor = useColorModeValue("gray.100", "gray.700");
   const treeBoxBorderColor = useColorModeValue("gray.300", "gray.600");
   const inputBackgroundColor = useColorModeValue("white", "gray.900");
 
   const [tree, setTree] = useState<TreeNode | null>(null);
   const [predictedValue, setPredictedValue] = useState<number | null>(null);
-  const [mobilePhoneToPredict, setMobilePhoneToPredict] = useState<string>("");
-  const autoFilledMobilePhone = {
-    battery_power: "915",
-    blue: "no",
-    dual_sim: "yes",
-    fc: "4",
-    four_g: "no",
-    int_memory: "22",
-    m_dep: "yes",
-    mobile_wt: "174",
-    n_cores: "5",
-    pc: "12",
-    px_height: "748",
-    px_width: "1840",
-    ram: "572",
-    sc_h: "7",
-    sc_w: "yes",
-    talk_time: "10",
-    three_g: "yes",
-    touch_screen: "yes",
-    wifi: "yes",
+  const [studentToPredict, setStudentToPredict] = useState<string>("");
+  const autoFilledStudent = {
+    school: "GP",
+    sex: "M",
+    age: "15",
+    address: "U",
+    famsize: "GT3",
+    pstatus: "T",
+    medu: "higher",
+    fedu: "higher",
+    mjob: "services",
+    fjob: "other",
+    reason: "course",
+    guardian: "mother",
+    traveltime: "<15 min",
+    studytime: "<15 min",
+    failures: "0",
+    schoolsup: "false",
+    famsup: "true",
+    paid: "false",
+    activities: "true",
+    nursery: "false",
+    higher: "true",
+    internet: "true",
+    romantic: "false",
+    famrel: "very good",
+    freetime: "moderate",
+    goout: "moderate",
+    dalc: "very low",
+    walc: "very low",
+    health: "very good",
+    absences: "4",
+    g1: "10",
+    g2: "13",
+    g3: "14",
   };
 
   const toast = useToast();
 
   useEffect(() => {
-    if (mobilePhonesDataset.length) {
-      const decisionTree = generateTree(mobilePhonesDataset, "clock_speed", [
-        "blue",
-        "dual_sim",
-        "fc",
-        "four_g",
-        "three_g",
-        "touch_screen",
-        "wifi",
+    if (studentsDataset.length) {
+      const decisionTree = generateTree(studentsDataset, "dalc", [
+        "school",
+        "sex",
+        "age",
+        "address",
+        "famsize",
+        "pstatus",
+        "medu",
+        "fedu",
+        "mjob",
+        "fjob",
+        "reason",
+        "guardian",
+        "traveltime",
+        "studytime",
+        "failures",
+        "schoolsup",
+        "famsup",
+        "paid",
+        "activities",
+        "nursery",
+        "higher",
+        "internet",
+        "romantic",
+        "famrel",
+        "freetime",
+        "goout",
+        // "dalc",
+        // "walc",
+        "health",
+        // "absences",
+        // "g1",
+        // "g2",
+        // "g3",
       ]);
 
       setTree(decisionTree);
     }
-  }, [mobilePhonesDataset]);
+  }, [studentsDataset]);
 
   const autoFillInput = async () => {
-    setMobilePhoneToPredict(JSON.stringify(autoFilledMobilePhone));
+    setStudentToPredict(JSON.stringify(autoFilledStudent));
   };
 
-  const predictMobilePhoneValue = async () => {
-    if (tree && mobilePhoneToPredict) {
+  const predictAlcoholConsumption = async () => {
+    if (tree && studentToPredict) {
       try {
-        const jsonMobilePhoneToPredict = JSON.parse(mobilePhoneToPredict);
-        const predictedMobilePhoneValue = await predict(
+        const jsonStudentToPredict = JSON.parse(studentToPredict);
+        const predictedAlcoholConsumption = await predict(
           tree,
-          jsonMobilePhoneToPredict as any
+          jsonStudentToPredict as any
         );
-        setPredictedValue(predictedMobilePhoneValue);
+        setPredictedValue(predictedAlcoholConsumption);
         toast({
-          title: `Prediction: ${predictedMobilePhoneValue}`,
+          title: `Prediction: ${predictedAlcoholConsumption}`,
           position: "top",
           isClosable: true,
           duration: null,
@@ -109,7 +149,7 @@ export const MobilePhonesDemoPage: FC = () => {
 
         <BreadcrumbItem isCurrentPage>
           <BreadcrumbLink href="/demo/mobile-phones">
-            Mobile phones
+            Student alcohol consumption
           </BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
@@ -117,7 +157,7 @@ export const MobilePhonesDemoPage: FC = () => {
         <Link as={NavLink} to="/" _hover={{ color: "blue.400" }}>
           <ChevronLeftIcon boxSize="2rem" />
         </Link>
-        <Heading as="h1">Mobile phones demo</Heading>
+        <Heading as="h1">Student alcohol consumption demo</Heading>
       </HStack>
       <Box
         backgroundColor={treeDiagrambackgroundColor}
@@ -145,8 +185,8 @@ export const MobilePhonesDemoPage: FC = () => {
           <Input
             paddingLeft={20}
             placeholder="Paste JSON attributes"
-            value={mobilePhoneToPredict}
-            onChange={(e) => setMobilePhoneToPredict(e.target.value)}
+            value={studentToPredict}
+            onChange={(e) => setStudentToPredict(e.target.value)}
           />
           <InputRightElement>
             <IconButton
@@ -154,7 +194,7 @@ export const MobilePhonesDemoPage: FC = () => {
               size="sm"
               icon={<ChevronRightIcon />}
               aria-label="Predict"
-              onClick={predictMobilePhoneValue}>
+              onClick={predictAlcoholConsumption}>
               Predict
             </IconButton>
           </InputRightElement>
@@ -164,12 +204,12 @@ export const MobilePhonesDemoPage: FC = () => {
           right={5}
           bottom={2}
           fontSize="sm"
-          href="https://www.kaggle.com/iabhishekofficial/mobile-price-classification"
+          href="https://www.kaggle.com/prashant111/student-alcohol-consumption"
           textColor="blue.400">
           from Kaggle
         </Link>
 
-        {tree && <TreeDiagram data={tree} initialDepth={5} />}
+        {tree && <TreeDiagram data={tree} initialDepth={10} />}
       </Box>
     </VStack>
   );
