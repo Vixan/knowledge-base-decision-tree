@@ -8,7 +8,7 @@ import theme from "./styles/theme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <App />
     </BrowserRouter>
