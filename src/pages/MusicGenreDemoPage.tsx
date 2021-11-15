@@ -88,15 +88,15 @@ export const MusicGenreDemoPage: FC = () => {
     <VStack width="100%" alignItems="stretch" height="100%" spacing={4}>
       <Breadcrumb>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          <BreadcrumbLink as={NavLink} to="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
 
         <BreadcrumbItem>
-          <BreadcrumbLink href="#">Demos</BreadcrumbLink>
+          <BreadcrumbLink as={NavLink} to="/">Demos</BreadcrumbLink>
         </BreadcrumbItem>
 
         <BreadcrumbItem isCurrentPage>
-          <BreadcrumbLink href="/demo/music-genre">Music genre</BreadcrumbLink>
+          <BreadcrumbLink as={NavLink} to="/demos/music-genre">Music genre</BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
       <HStack mb={8} alignItems="center">

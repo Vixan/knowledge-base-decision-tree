@@ -102,15 +102,15 @@ export const HeartDiseaseDemoPage: FC = () => {
     <VStack width="100%" alignItems="stretch" height="100%" spacing={4}>
       <Breadcrumb>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          <BreadcrumbLink as={NavLink} to="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
 
         <BreadcrumbItem>
-          <BreadcrumbLink href="#">Demos</BreadcrumbLink>
+          <BreadcrumbLink as={NavLink} to="/">Demos</BreadcrumbLink>
         </BreadcrumbItem>
 
         <BreadcrumbItem isCurrentPage>
-          <BreadcrumbLink href="/demo/heart-disease">
+          <BreadcrumbLink as={NavLink} to="/demos/heart-disease">
             Heart disease
           </BreadcrumbLink>
         </BreadcrumbItem>
