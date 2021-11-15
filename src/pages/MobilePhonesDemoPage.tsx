@@ -160,6 +160,7 @@ export const MobilePhonesDemoPage: FC = () => {
           </InputRightElement>
         </InputGroup>
         <Link
+          zIndex="2"
           position="absolute"
           right={5}
           bottom={2}

@@ -84,10 +84,7 @@ export const HeartDiseaseDemoPage: FC = () => {
     if (tree && personDataToPredict) {
       try {
         const personData = JSON.parse(personDataToPredict);
-        const predictedSex = await predict(
-          tree,
-          personData as any
-        );
+        const predictedSex = await predict(tree, personData as any);
         setPredictedSex(predictedSex);
         toast({
           title: `Prediction: ${predictedSex}`,
@@ -113,7 +110,9 @@ export const HeartDiseaseDemoPage: FC = () => {
         </BreadcrumbItem>
 
         <BreadcrumbItem isCurrentPage>
-          <BreadcrumbLink href="/demo/heart-disease">Heart disease</BreadcrumbLink>
+          <BreadcrumbLink href="/demo/heart-disease">
+            Heart disease
+          </BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
       <HStack mb={8} alignItems="center">
@@ -163,6 +162,7 @@ export const HeartDiseaseDemoPage: FC = () => {
           </InputRightElement>
         </InputGroup>
         <Link
+          zIndex="2"
           position="absolute"
           right={5}
           bottom={2}

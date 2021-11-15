@@ -101,6 +101,8 @@ export const PokemonListDemoPage: FC = () => {
     }
   };
 
+  console.log(pokemonList);
+
   return (
     <VStack width="100%" alignItems="stretch" height="100%" spacing={4}>
       <Breadcrumb>

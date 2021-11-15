@@ -200,6 +200,7 @@ export const StudentAlcoholDemoPage: FC = () => {
           </InputRightElement>
         </InputGroup>
         <Link
+          zIndex="2"
           position="absolute"
           right={5}
           bottom={2}
